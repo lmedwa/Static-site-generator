@@ -2,7 +2,7 @@ from textnode import TextNode, TextType
 from enum import Enum
 from textnode import text_node_to_html_node
 from htmlnode import HTMLNode, LeafNode, ParentNode
-from inline_markdwon import text_to_textnodes
+from inline_markdown import text_to_textnodes
 
 
 class MarkdownBlock(Enum):
@@ -71,6 +71,7 @@ def markdown_to_html_node(markdown):
     split_blocks = markdown_to_blocks(markdown)
     for block in split_blocks:
         block_type = block_to_block_type(block)
+        
 
         if block_type == MarkdownBlock.heading:
             level = 0 
@@ -127,6 +128,6 @@ def markdown_to_html_node(markdown):
             paragraph_text = " ".join(lines)
             children = text_to_children(paragraph_text)
             block_node_list.append(ParentNode("p", children, None))
-
+    
     return ParentNode("div", block_node_list, None)
             
